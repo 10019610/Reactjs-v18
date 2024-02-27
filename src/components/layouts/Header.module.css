@@ -1,0 +1,40 @@
+.baseForm {
+  height: 80px;
+  /* width: 1920px; */
+  align-items: center;
+  display: flex;
+  /* border-bottom: 1px solid #db6a6a; */
+  box-shadow: 0 4px 3px -4px #db6a6a;
+}
+
+.baseForm img {
+}
+
+.nav {
+  position: absolute;
+  right: 0px;
+  font-size: large;
+  margin-left: 5%;
+  color: black;
+  /* margin-right: 20px; */
+}
+.nav a {
+  color: black;
+  font-weight: 600;
+}
+.nav button {
+  background-color: #db6a6a;
+  border: none;
+  height: 60px;
+  margin-right: 10px;
+  width: 80px;
+  border-radius: 8px;
+  font-weight: 900;
+  color: white;
+  cursor: pointer;
+}
+.nav button:hover {
+  background-color: #ffffff;
+  color: #db6a6a;
+  border: 2px solid #db6a6a;
+}
