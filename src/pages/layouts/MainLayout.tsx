@@ -1,4 +1,4 @@
-import { Header } from "../../components/layouts";
+import { Footer, Header } from "../../components/layouts";
 import { Main } from "../main";
 
 const MainLayout = () => {
@@ -6,6 +6,7 @@ const MainLayout = () => {
     <div>
       <Header />
       <Main />
+      <Footer />
     </div>
   );
 };

@@ -1,23 +1,53 @@
 .baseForm {
-  width: 768px;
+  width: 900px;
   height: 700px;
-  background-color: aqua;
+  /* background-color: aqua; */
   margin: 4rem auto;
   display: flex;
   flex-wrap: wrap;
 }
 .list_item {
-  background: rgb(255, 255, 255);
-  width: 30.333333333%;
+  background: white;
+  width: 30%;
   height: 40%;
   border-radius: 10px;
   margin-bottom: 5px;
-  box-shadow: rgb(224, 224, 224) 0px 2px 4px 0px;
+  /* box-shadow: rgb(224, 224, 224) 0px 2px 4px 0px; */
   margin-left: 2%;
-  margin-bottom: 2rem;
+}
+.itemform {
+  display: flex;
+}
+.region {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
 }
 
+.region p {
+  color: #db6a6a;
+  font-weight: 700;
+  margin-bottom: 0;
+  text-align: center;
+  padding-right: 0.7rem;
+}
+
+.itemData {
+  color: black;
+}
+.itemData p {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.subData {
+  display: flex;
+}
+.subData div {
+  margin-right: 0.5rem;
+  font-size: smaller;
+}
 .img {
   width: 100%;
+  margin-bottom: 1rem;
   /* height: 50%; */
 }
