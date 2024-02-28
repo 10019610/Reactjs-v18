@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./Header.module.css";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const goCreatePost = () => {
+    navigate("/createPost");
+  };
   return (
     <div className={classes.baseForm}>
       <Link to="/">
@@ -20,7 +25,9 @@ const Header = () => {
         >
           회원가입
         </Link>
-        <button style={{}}>글쓰깈</button>
+        <button onClick={goCreatePost} style={{}}>
+          글쓰깈
+        </button>
       </div>
       {/* <div className="">헤더에요</div> */}
     </div>

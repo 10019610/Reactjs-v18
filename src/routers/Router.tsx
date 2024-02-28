@@ -5,8 +5,8 @@ import { InfoPost } from "../pages/infoPost";
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
-      <Route path="/infoPost/:id" element={<InfoPost />} />
+      {/* <Route path="/" element={<Main />} />
+      <Route path="/infoPost/:id" element={<InfoPost />} /> */}
     </Routes>
   );
 };
