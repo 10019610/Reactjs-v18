@@ -5,7 +5,9 @@ const ContentLayout = () => {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div style={{ width: "1200px", margin: "auto", marginTop: "2rem" }}>
+        <Outlet />
+      </div>
     </div>
   );
 };

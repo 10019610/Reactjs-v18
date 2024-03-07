@@ -15,131 +15,60 @@ const Main = () => {
     postExpYn: string;
     delYn: string;
     restaurantType: string;
+    likeCount: number;
+    hateCount: number;
+    viewCount: number;
+    regDateTime: string;
   }
 
   const [list, setList] = useState<listObject[]>([]);
   const listSearch = async () => {
-    const result = await axios.get<listObject[]>(
-      "http://localhost:8080/post/list"
-    );
-    setList(result.data);
+    try {
+      const response = await axios.get<listObject[]>(
+        "http://localhost:8080/post/list"
+      );
+      setList(response.data);
+      console.log(response);
+    } catch (error) {
+      console.error("listSearch 오류:", error);
+    }
   };
 
   console.log(list);
 
+  const likeHandler = async (postId: number) => {
+    try {
+      const response = await axios.post("http://localhost:8080/post/like", {
+        postId,
+      });
+      if (response.status === 200) {
+        setLike(true);
+      }
+      console.log(response);
+    } catch (error) {
+      console.error("likeHandler 오류:", error);
+    }
+  };
+  const [hate, setHate] = useState(false);
+  const [like, setLike] = useState(false);
+  const hateHandler = async (postId: number) => {
+    try {
+      const response = await axios.post("http://localhost:8080/post/hate", {
+        postId,
+      });
+      if (response.status === 200) {
+        setHate(true);
+      }
+      console.log(response);
+    } catch (error) {
+      console.error("hateHandler 오류:", error);
+    }
+  };
   useEffect(() => {
     listSearch();
-  }, []);
-  // const data = [
-  //   {
-  //     id: 1,
-  //     region1: "경기",
-  //     region2: "안양시",
-  //     title: "호계3동에서 맛보는 일본",
-  //     content: "신멘. 그저 갓.",
-  //     likeCount: 89,
-  //     viewCount: 32222,
-  //     regDateTime: "2024-02-21",
-  //     image: "/ramen.png",
-  //   },
-  //   {
-  //     id: 2,
-  //     region1: "서울",
-  //     region2: "광진구",
-  //     title: "광진구에서 맛보는 미국",
-  //     content: "스테이크. 그저 갓.",
-  //     likeCount: 77,
-  //     viewCount: 1222,
-  //     regDateTime: "2024-02-21",
-  //     image: "/ramen.png",
-  //   },
-  //   {
-  //     id: 3,
-  //     region1: "경기",
-  //     region2: "의왕시",
-  //     title: "오전동에서 맛보는 참치",
-  //     content: "참치창고. 그저 갓.",
-  //     likeCount: 819,
-  //     viewCount: 3222,
-  //     regDateTime: "2024-02-23",
-  //     image: "/ramen.png",
-  //   },
-  //   {
-  //     id: 4,
-  //     region1: "경기",
-  //     region2: "의왕시",
-  //     title: "오전동에서 맛보는 참치",
-  //     content: "참치창고. 그저 갓.",
-  //     likeCount: 77,
-  //     viewCount: 6454,
-  //     regDateTime: "2024-02-24",
-  //     image: "/ramen.png",
-  //   },
-  //   {
-  //     id: 5,
-  //     region1: "경기",
-  //     region2: "포천시",
-  //     title: "이동에서 맛보는 갈비",
-  //     content: "이동갈비. 그저 갓.",
-  //     likeCount: 319,
-  //     viewCount: 3222,
-  //     regDateTime: "2024-02-26",
-  //     image: "/ramen.png",
-  //   },
-  //   {
-  //     id: 6,
-  //     region1: "경기",
-  //     region2: "수원",
-  //     title: "구운동에서 맛보는 왕갈비",
-  //     content: "수원왕갈비. 그저 갓.",
-  //     likeCount: 19,
-  //     viewCount: 5778,
-  //     regDateTime: "2024-02-26",
-  //     image: "/ramen.png",
-  //   },
-  //   {
-  //     id: 7,
-  //     region1: "서울",
-  //     region2: "강남구",
-  //     title: "압구정에서 맛보는 소고기",
-  //     content: "참치창고. 그저 갓.",
-  //     likeCount: 8,
-  //     viewCount: 459,
-  //     regDateTime: "2024-02-26",
-  //     image: "/ramen.png",
-  //   },
-  //   {
-  //     id: 8,
-  //     region1: "서울",
-  //     region2: "성동구",
-  //     title: "성동구에서 맛보는 파스타",
-  //     content: "파스타. 그저 갓.",
-  //     likeCount: 75,
-  //     viewCount: 12,
-  //     regDateTime: "2024-02-26",
-  //     image: "/ramen.png",
-  //   },
-  //   {
-  //     id: 9,
-  //     region1: "경기",
-  //     region2: "안양시",
-  //     title: "범계에서 맛보는 이자카야",
-  //     content: "이자카야. 그저 갓.",
-  //     likeCount: 42,
-  //     viewCount: 331,
-  //     regDateTime: "2024-02-27",
-  //     image: "/ramen.png",
-  //   },
-  // ];
+  }, [like, hate]);
+
   const data1 = {
-    id: 9,
-    region1: "경기",
-    region2: "안양시",
-    title: "범계에서 맛보는 이자카야",
-    content: "이자카야. 그저 갓.",
-    likeCount: 42,
-    viewCount: 331,
-    regDateTime: "2024-02-27",
     image: "/ramen.png",
   };
   const customDate = (regDate: string) => {
@@ -150,7 +79,6 @@ const Main = () => {
     const differenceDays = Math.round(differenceMs / oneDay);
     return differenceDays;
   };
-  console.log();
   return (
     <div>
       <CategoryBar />
@@ -169,7 +97,7 @@ const Main = () => {
                 />
               </Link>
             </div>
-            <div>
+            <div style={{ display: "flex" }}>
               <Link
                 to={"/infoPost/" + item.postId}
                 style={{ textDecoration: "none" }}
@@ -182,15 +110,43 @@ const Main = () => {
                   <div className={classes.itemData}>
                     <p>{item.postTitle}</p>
                     <div className={classes.subData}>
-                      <div>좋아요{data1.likeCount}</div>
-                      <div>조회수{data1.viewCount}</div>
+                      <div>좋아요{item.likeCount}</div>
+                      <div>싫어요{item.hateCount}</div>
+                      <div>조회수{item.viewCount}</div>
                       <div style={{ color: "gray", marginLeft: "10px" }}>
-                        {customDate(data1.regDateTime)}일전
+                        {customDate(item.regDateTime) === 0
+                          ? "오늘"
+                          : customDate(item.regDateTime) + "일전"}
                       </div>
                     </div>
                   </div>
                 </div>
               </Link>
+              <div>
+                <button
+                  style={{
+                    backgroundColor: "white",
+                    border: "none",
+                    padding: "0",
+                  }}
+                  type="button"
+                  onClick={() => likeHandler(item.postId)}
+                >
+                  👍
+                </button>
+                <button
+                  type="button"
+                  onClick={() => hateHandler(item.postId)}
+                  style={{
+                    backgroundColor: "white",
+                    border: "none",
+                    padding: "0",
+                    marginTop: "2.2rem",
+                  }}
+                >
+                  👎🏼
+                </button>
+              </div>
             </div>
           </div>
         ))}
